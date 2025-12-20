@@ -9,12 +9,12 @@ public class PatientList {
     public void addPatient(Patient patient) {
         if (head == null) {
             head = tail = patient;
-            System.out.println("The patient " + patient.name + " is added to the list");
+            System.out.println("The patient " + patient.getName() + " is added to the list");
             return;
         }
-        tail.next = patient;
+        tail.setNext(patient);
         tail = patient;
-        System.out.println("The patient " + patient.name + " is added to the list");
+        System.out.println("The patient " + patient.getName() + " is added to the list");
     }
 
     public void removePatient(int id) {
@@ -25,17 +25,17 @@ public class PatientList {
         Patient current = head;
         Patient previous = head;
         while (current != null) {
-            if (current.id == id && current == head) {
-                head = current.next;
-                System.out.println("The patient " + current.name + " is removed from the list");
+            if (current.getId() == id && current == head) {
+                head = current.getNext();
+                System.out.println("The patient " + current.getName() + " is removed from the list");
                 return;
-            } else if (current.id == id) {
-                previous.next = current.next;
-                System.out.println("The patient " + current.name + " is removed from the list");
+            } else if (current.getId() == id) {
+                previous.setNext(current.getNext());
+                System.out.println("The patient " + current.getName() + " is removed from the list");
                 return;
             }
             previous = current;
-            current = current.next;
+            current = current.getNext();
         }
        System.out.println("The patient with " + id + " id is not in the list");
     }
@@ -43,11 +43,11 @@ public class PatientList {
     public Patient findPatient(int id) {
         Patient current = head;
         while (current != null) {
-            if (current.id == id) {
-                System.out.println("The patient is found: " + current.name);
+            if (current.getId() == id) {
+                System.out.println("The patient is found: " + current.getName());
                 return current;
             }
-            current = current.next;
+            current = current.getNext();
         }
         System.out.println("The patient is not found");
         return current;
@@ -57,8 +57,8 @@ public class PatientList {
         Patient current = head;
         System.out.println("PATIENT LIST");
         while (current != null) {
-            System.out.println(current.name);
-            current = current.next;
+            System.out.println(current.getName());
+            current = current.getNext();
         }
     }
 }
