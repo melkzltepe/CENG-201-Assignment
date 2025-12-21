@@ -1,7 +1,7 @@
 public class TreatmentRequest extends Patient{
     private int patientId;
     private long arrivalTime;
-    private long[] time = new long[3];
+    private long[] arrivalTimeArray = new long[3];
     private int gmt = 3;
     private TreatmentRequest next;
 
@@ -9,7 +9,7 @@ public class TreatmentRequest extends Patient{
         super(name, severity, age);
         this.patientId = super.getId();
         this.arrivalTime = System.currentTimeMillis();
-        this.time = computeTime(arrivalTime, gmt);
+        this.arrivalTimeArray = computeTime(arrivalTime, gmt);
         this.next = null;
     }
 
@@ -17,7 +17,7 @@ public class TreatmentRequest extends Patient{
 
     public long getArrivalTime() {return arrivalTime;}
 
-    public long[] getTime() {return time;}
+    public long[] getTime() {return arrivalTimeArray;}
 
     public int getGmt() {return gmt;}
 
@@ -27,7 +27,7 @@ public class TreatmentRequest extends Patient{
 
     public void setArrivalTime(long arrivalTime) {this.arrivalTime = arrivalTime;}
 
-    public void setTime(long[] time) {this.time = time;}
+    public void setTime(long[] time) {this.arrivalTimeArray = time;}
 
     public void setGmt(int gmt) {this.gmt = gmt;}
 
@@ -42,5 +42,9 @@ public class TreatmentRequest extends Patient{
         long remainedHours = (hours + gmt) % 24;
         long[] time = {remainedHours, remainedMinutes, remainedSeconds};
         return time;
+    }
+
+    public String printTime(long[] time) {
+        return (time[0] + ":" + time[1] + ":" + time[2]);
     }
 }

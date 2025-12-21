@@ -14,13 +14,13 @@ public class TreatmentQueue {
         if (isEmpty()) {
             head = tail = request;
             size++;
-            System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created");
+            System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
             return;
         }
         tail.setNext(request);
         tail = request;
         size++;
-        System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created");
+        System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
     }
 
     public TreatmentRequest dequeue() {
