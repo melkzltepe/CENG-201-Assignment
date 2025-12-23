@@ -11,16 +11,35 @@ public class TreatmentQueue {
     public boolean isEmpty() {return (head == null);}
 
     public void enqueue(TreatmentRequest request) {
-        if (isEmpty()) {
-            head = tail = request;
+        if (request.getPriority()) {
+            if (isEmpty()) {
+                head = tail = request;
+                size++;
+                System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
+            }else {
+                TreatmentRequest current = head;
+                TreatmentRequest prev = head;
+                while (current.getPriority()) {
+                    prev = current;
+                    current = current.getNext();
+                }
+                prev.setNext(request);
+                request.setNext(current);
+                System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
+                size++;
+            }
+        }else {
+            if (isEmpty()) {
+                head = tail = request;
+                size++;
+                System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
+                return;
+            }
+            tail.setNext(request);
+            tail = request;
             size++;
             System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
-            return;
         }
-        tail.setNext(request);
-        tail = request;
-        size++;
-        System.out.println("The treatment request of the patient " + request.getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
     }
 
     public TreatmentRequest dequeue() {

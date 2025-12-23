@@ -4,8 +4,8 @@ public class DischargeRecord extends TreatmentRequest {
     private long[] dischargeTimeArray;
     private DischargeRecord next;
 
-    public DischargeRecord(String name, int severity, int age) {
-        super(name, severity, age);
+    public DischargeRecord(String name, int severity, int age, boolean priority) {
+        super(name, severity, age, priority);
         patientId = super.getPatientId();
         dischargeTime = System.currentTimeMillis();
         dischargeTimeArray = computeTime(dischargeTime, 3);
