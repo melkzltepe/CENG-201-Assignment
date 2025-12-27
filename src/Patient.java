@@ -24,7 +24,7 @@ public class Patient {
             if (this.severity > 10 || this.severity < 1) {
                 System.out.println("Invalid severity, please enter a number between 1 and 10");
                 setSeverity(input.nextInt());
-            }else {
+            }else { //if the user enters a correct value, the condition sets to false and it exits from the while loop
                 condition = false;
             }
         }
