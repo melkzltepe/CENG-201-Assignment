@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class HospitalSystem {
+public class HospitalSystem {  //this class combines other classes functions into a single class
     private PatientList patientList;
     private TreatmentQueue treatmentQueue;
     private DischargeStack dischargeStack;
@@ -50,7 +50,7 @@ public class HospitalSystem {
         hashMap.remove(request.getPatientId());
     }
 
-    public void printSystem() {
+    public void printSystem() {  //this method uses the other classes' methods for convenience
         patientList.printList();
         System.out.println(" ");
         treatmentQueue.printQueue();
@@ -59,16 +59,16 @@ public class HospitalSystem {
         System.out.println(" ");
     }
 
-    private TreatmentQueue[] split(TreatmentQueue queue,boolean priority) {
+    private TreatmentQueue[] split(TreatmentQueue queue,boolean priority) {  //this method is used for dividing the queue into two smaller queues
         TreatmentQueue[] treatmentQueues = new TreatmentQueue[2];
-        if (priority) {
+        if (priority) {  //This if block is used for dividing queue into two smaller queues according to priority. At the end of this block, we have a queue that only consist of patient has priority and a queue that only consist of patient that does not have priority
             TreatmentRequest prev = queue.getHead();
             TreatmentRequest current = queue.getHead().getNext();
-            while (current.getPriority()) {
+            while (current.getPriority()) {  //find the last patient with priority
                 prev = current;
                 current = current.getNext();
             }
-            prev.setNext(null);
+            prev.setNext(null); //sets the first queue's tail to the null
             treatmentQueues[0] = new TreatmentQueue();
             treatmentQueues[0].setHead(queue.getHead());
             treatmentQueues[0].setTail(prev);
@@ -76,14 +76,14 @@ public class HospitalSystem {
             treatmentQueues[1].setHead(current);
             treatmentQueues[1].setTail(queue.getTail());
             return treatmentQueues;
-        }else {
+        }else { // this else block used for normal dividing in the merge sort
             if (queue.isEmpty()) {
                 treatmentQueues[0] = queue;
                 return treatmentQueues;
             }
             TreatmentRequest first = queue.getHead();
             TreatmentRequest second = queue.getHead();
-            while (first != null && first.getNext() != null) {
+            while (first != null && first.getNext() != null) { //finds the middle element in the queue
                 first = first.getNext().getNext();
                 if (first != null) {
                     second = second.getNext();
@@ -100,7 +100,7 @@ public class HospitalSystem {
         }
     }
 
-    private TreatmentQueue merge(TreatmentQueue queue1, TreatmentQueue queue2, boolean bySeverity) {
+    private TreatmentQueue merge(TreatmentQueue queue1, TreatmentQueue queue2, boolean bySeverity) { //the merge method for merge sort
         TreatmentQueue newQueue = new TreatmentQueue();
 
         if (queue1.isEmpty()) {
@@ -109,10 +109,10 @@ public class HospitalSystem {
             return queue1;
         }
 
-        if (bySeverity) {
-            TreatmentRequest request1 = queue1.getHead();
-            TreatmentRequest request2 = queue2.getHead();
+        TreatmentRequest request1 = queue1.getHead();
+        TreatmentRequest request2 = queue2.getHead();
 
+        if (bySeverity) { //if we want to sort the queue by severity, we execute this if block
             while (request1 != null && request2 != null) {
                 if (request1.getPatient().getSeverity() > request2.getPatient().getSeverity()) {
                     newQueue.enqueue(request1, false);
@@ -120,65 +120,48 @@ public class HospitalSystem {
                 } else if (request1.getPatient().getSeverity() < request2.getPatient().getSeverity()) {
                     newQueue.enqueue(request2, false);
                     request2 = request2.getNext();
-                } else {
+                } else { //if both patients have the same severity, the patient in the first queue is added first
                     newQueue.enqueue(request1, false);
                     newQueue.enqueue(request2, false);
                     request1 = request1.getNext();
                     request2 = request2.getNext();
                 }
             }
-            if (request1 == null) {
-                while (request2.getNext() != null) {
-                    newQueue.enqueue(request2, false);
-                    request2 = request2.getNext();
-                }
-                newQueue.enqueue(request2, false);
-                newQueue.setTail(request2);
-            }else {
-                while (request1.getNext() != null) {
-                    newQueue.enqueue(request1, false);
-                    request1 = request1.getNext();
-                }
-                newQueue.enqueue(request1, false);
-                newQueue.setTail(request1);
-            }
-        }else {
-            TreatmentRequest request1 = queue1.getHead().getNext();
-            TreatmentRequest request2 = queue2.getHead().getNext();
+        }else {  //if we want to sort the queue by waiting time, we execute this if block
             while (request1 != null && request2 != null) {
-                if (request1.getArrivalTime() > request2.getArrivalTime()) {
+                if (request1.getArrivalTime() < request2.getArrivalTime()) { //if the patient arrives first, its arriving time value would be smaller so it waits more than other patients
                     newQueue.enqueue(request1, false);
                     request1 = request1.getNext();
-                } else if (request1.getArrivalTime() < request2.getArrivalTime()) {
+                } else if (request1.getArrivalTime() > request2.getArrivalTime()) {
                     newQueue.enqueue(request2, false);
                     request2 = request2.getNext();
-                } else {
+                } else { //if both patients have the same waiting time, the patient in the first queue is added first
                     newQueue.enqueue(request1, false);
                     newQueue.enqueue(request2, false);
                     request1 = request1.getNext();
                     request2 = request2.getNext();
                 }
             }
-            if (request1 == null) {
-                while (request2.getNext() != null) {
-                    newQueue.enqueue(request2, false);
-                    request2 = request2.getNext();
-                }
-                newQueue.enqueue(request2,false);
-                newQueue.setTail(request2);
-            }else {
-                while (request1.getNext() != null) {
-                    newQueue.enqueue(request1, false);
-                    request1 = request1.getNext();
-                }
-                newQueue.enqueue(request1,false);
-                newQueue.setTail(request1);
+        }
+        if (request1 == null) { //if first queue is empty, add all the elements in the second queue to our new queue
+            while (request2.getNext() != null) {
+                newQueue.enqueue(request2, false);
+                request2 = request2.getNext();
             }
+            newQueue.enqueue(request2,false);
+            newQueue.setTail(request2);
+        }else { //if second queue is empty, add all the elements in the first queue to our new queue
+            while (request1.getNext() != null) {
+                newQueue.enqueue(request1, false);
+                request1 = request1.getNext();
+            }
+            newQueue.enqueue(request1,false);
+            newQueue.setTail(request1);
         }
         return newQueue;
     }
 
-    private TreatmentQueue mergeSort(TreatmentQueue givenQueue, boolean bySeverity) {
+    private TreatmentQueue mergeSort(TreatmentQueue givenQueue, boolean bySeverity) {  //it applies merge sort to our queue
         if (givenQueue.getHead() == null || givenQueue.getHead().getNext() == null) {
             return givenQueue;
         }
@@ -191,7 +174,7 @@ public class HospitalSystem {
         return merge(first, second, bySeverity);
     }
 
-    public void sort(TreatmentQueue queue, boolean bySeverity) {
+    public void sort(TreatmentQueue queue, boolean bySeverity) { //split the first queue by priority and then applies merge sort to both queues
         TreatmentQueue[] queues= split(queue, true);
 
         queues[0] = mergeSort(queues[0], bySeverity);

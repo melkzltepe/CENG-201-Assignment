@@ -3,7 +3,6 @@ public class TreatmentQueue {
     private int size;
 
     public TreatmentQueue() {
-        super();
         this.size = 0;
         this.head = this.tail = null;
     }
@@ -11,17 +10,17 @@ public class TreatmentQueue {
     public boolean isEmpty() {return (head == null);}
 
     public void enqueue(TreatmentRequest request, boolean print) {
-        if (request.getPriority()) {
+        if (request.getPriority()) {  //if the patient has priority, this if block put the patient ahead of the patients that haven't got the priority
             if (head == null) {
                 head = tail = request;
                 size++;
-                if (print) {
+                if (print) {  //if the user wants to see feedback at every step, gives the value true to the boolean variable print and this if block is executed
                     System.out.println("The treatment request of the patient " + request.getPatient().getName() + " with the id " + request.getPatientId() + " is created \nTime: " + request.printTime(request.getTime()));
                 }
             }else {
                 TreatmentRequest current = head;
                 TreatmentRequest prev = head;
-                while (current != null && current.getPriority()) {
+                while (current != null && current.getPriority()) {  //this while block find the last patient that has priority
                     prev = current;
                     current = current.getNext();
                 }
@@ -32,7 +31,7 @@ public class TreatmentQueue {
                 }
                 size++;
             }
-        }else {
+        }else {  //if the patient does not have priority, it is added to the end of the queue
             if (isEmpty()) {
                 head = tail = request;
                 size++;
@@ -59,7 +58,7 @@ public class TreatmentQueue {
         head = head.getNext();
         size--;
         System.out.println("The treatment request of the patient " + temp.getPatient().getName() + " with the id " + temp.getPatientId() + " is removed from the queue");
-        if (head == null) {
+        if (head == null) {  //if the queue is empty, makes the tail null
             tail = null;
         }
         return temp;
@@ -75,7 +74,7 @@ public class TreatmentQueue {
         TreatmentRequest current = head;
         System.out.println("=====TREATMENT REQUESTS LIST=====");
         while (current != null) {
-            System.out.println(current.getPatient().getName());
+            System.out.println(current.getPatient().getName());  //we use patient object to reach patient name
             current = current.getNext();
         }
     }
@@ -91,7 +90,7 @@ public class TreatmentQueue {
     public TreatmentRequest findRequest(int id) {
         TreatmentRequest current = head;
         while (current != null) {
-            if (current.getPatient().getId() == id) {
+            if (current.getPatient().getId() == id) { //we use patient object to reach patient id
                 return current;
             }
             current = current.getNext();

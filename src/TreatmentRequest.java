@@ -5,12 +5,12 @@ public class TreatmentRequest {
     private int gmt = 3;
     private TreatmentRequest next;
     private boolean priority;
-    private Patient patient;
+    private Patient patient; //we have patient object to reach the variables like name, severity etc.
 
     public TreatmentRequest(Patient patient, boolean priority) {
         this.patient = patient;
         this.patientId = patient.getId();
-        this.arrivalTime = System.currentTimeMillis();
+        this.arrivalTime = System.currentTimeMillis(); //Returns the total number of milliseconds passed since January 1, 1970
         this.arrivalTimeArray = computeTime(arrivalTime, gmt);
         this.next = null;
         this.priority = priority;
@@ -44,7 +44,7 @@ public class TreatmentRequest {
 
     public void setPatient(Patient patient) {this.patient = patient;}
 
-    public long[] computeTime(long milliSec, int gmt) {
+    public long[] computeTime(long milliSec, int gmt) { //Compute the current time by using the total milliseconds
         long seconds = milliSec / 1000;
         long remainedSeconds = seconds % 60;
         long minutes = seconds / 60;

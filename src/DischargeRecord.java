@@ -3,13 +3,13 @@ public class DischargeRecord {
     private long dischargeTime;
     private long[] dischargeTimeArray;
     private DischargeRecord next;
-    private TreatmentRequest request;
+    private TreatmentRequest request;  //we have treatment request object to reach patient object and its data field
 
     public DischargeRecord(TreatmentRequest request) {
         this.request = request;
         patientId = request.getPatientId();
         dischargeTime = System.currentTimeMillis();
-        dischargeTimeArray = request.computeTime(dischargeTime, 3);
+        dischargeTimeArray = request.computeTime(dischargeTime, 3); //uses the method of TreatmentRequest class
         this.next = null;
     }
 

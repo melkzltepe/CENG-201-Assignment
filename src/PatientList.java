@@ -10,7 +10,7 @@ public class PatientList {
         if (head == null) {
             head = tail = patient;
             System.out.println("The patient " + patient.getName() + " is added to the list");
-            patient.increaseId();
+            patient.increaseId(); //increases the id value to prevent id confusion
             return;
         }
         tail.setNext(patient);
@@ -26,8 +26,8 @@ public class PatientList {
         }
         Patient current = head;
         Patient previous = head;
-        while (current != null) {
-            if (current.getId() == id && current == head) {
+        while (current != null) { //iterates through the list
+            if (current.getId() == id && current == head) { //executes if the head of the list is the patient that we want to find
                 head = current.getNext();
                 System.out.println("The patient " + current.getName() + " is removed from the list");
                 return;

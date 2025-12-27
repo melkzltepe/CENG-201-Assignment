@@ -7,9 +7,8 @@ public class Patient {
     private int age;
     private Patient next;
     private int id;
-    private TreatmentRequest request;
 
-    public Patient() {
+    public Patient() { //Parameterless constructer
         this.name = " ";
         this.severity = 0;
         this.age = 0;
@@ -21,7 +20,7 @@ public class Patient {
         boolean condition = true;
         Scanner input = new Scanner(System.in);
         this.severity = severity;
-        while (condition) {
+        while (condition) { //Iterates until the user enter a correct severity value
             if (this.severity > 10 || this.severity < 1) {
                 System.out.println("Invalid severity, please enter a number between 1 and 10");
                 setSeverity(input.nextInt());

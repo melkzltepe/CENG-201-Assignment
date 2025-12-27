@@ -1,11 +1,11 @@
 public class TestPatient {
 
     public static void main(String[] args) {
-        Patient p1 = new Patient("Derya Deniz", 2, 31);
-        Patient p2 = new Patient("Ahmet Suyabatmaz", 1, 65);
-        Patient p3 = new Patient("Ayşe Fırıncı", 4, 70);
-        Patient p4 = new Patient("İrem Kaynarca", 8, 32);
-        Patient p5 = new Patient("Aleyna Mollahamzaoğlu", 6, 29);
+        Patient p1 = new Patient("Melike Kızıltepe",2, 21);
+        Patient p2 = new Patient("Merve Kızıltepe", 6, 29);
+        Patient p3 = new Patient("Saliha Çolak", 4, 32);
+        Patient p4 = new Patient("Zeynep Kızıltepe", 3, 51);
+        Patient p5 = new Patient("İsmail Kızıltepe", 1, 65);
 
         PatientList patients = new PatientList();
         patients.addPatient(p1);
