@@ -9,7 +9,7 @@ public class Patient {
     private int id;
     private TreatmentRequest request;
 
-    Patient() {
+    public Patient() {
         this.name = " ";
         this.severity = 0;
         this.age = 0;
@@ -17,7 +17,7 @@ public class Patient {
         this.id = 0;
     }
 
-    Patient(String name, int severity, int age) {
+    public Patient(String name, int severity, int age) {
         boolean condition = true;
         Scanner input = new Scanner(System.in);
         this.severity = severity;
@@ -33,7 +33,11 @@ public class Patient {
         this.age = age;
         this.next = null;
         this.id = idCounter;
-        idCounter++;
+    }
+
+    public void increaseId() {
+        id = idCounter;
+        ++idCounter;
     }
 
     public String getName() {return name;}

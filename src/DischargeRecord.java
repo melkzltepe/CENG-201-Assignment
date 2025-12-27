@@ -1,14 +1,15 @@
-public class DischargeRecord extends TreatmentRequest {
+public class DischargeRecord {
     private int patientId;
     private long dischargeTime;
     private long[] dischargeTimeArray;
     private DischargeRecord next;
+    private TreatmentRequest request;
 
-    public DischargeRecord(String name, int severity, int age, boolean priority) {
-        super(name, severity, age, priority);
-        patientId = super.getPatientId();
+    public DischargeRecord(TreatmentRequest request) {
+        this.request = request;
+        patientId = request.getPatientId();
         dischargeTime = System.currentTimeMillis();
-        dischargeTimeArray = computeTime(dischargeTime, 3);
+        dischargeTimeArray = request.computeTime(dischargeTime, 3);
         this.next = null;
     }
 
@@ -16,12 +17,19 @@ public class DischargeRecord extends TreatmentRequest {
 
     public long[] getDischargeTimeArray() {return dischargeTimeArray;}
 
-    @Override
     public DischargeRecord getNext() {return next;}
+
+    public int getPatientId() {return patientId;}
+
+    public TreatmentRequest getRequest() {return request;}
 
     public void setDischargeTime(long dischargeTime) {this.dischargeTime = dischargeTime;}
 
     public void setDischargeTimeArray(long[] dischargeTimeArray) {this.dischargeTimeArray = dischargeTimeArray;}
 
     public void setNext(DischargeRecord next) {this.next = next;}
+
+    public void setPatientId(int patientId) {this.patientId = patientId;}
+
+    public void setRequest(TreatmentRequest request) {this.request = request;}
 }

@@ -14,7 +14,7 @@ public class DischargeStack {
         }
         record.setNext(top);
         top = record;
-        System.out.println("The patient " + record.getName() + " with the id " + record.getPatientId() + " is discharged. \nTime: " + record.printTime(record.getDischargeTimeArray()));
+        System.out.println("The patient " + record.getRequest().getPatient().getName() + " with the id " + record.getPatientId() + " is discharged. \nTime: " + record.getRequest().printTime(record.getDischargeTimeArray()));
     }
 
     public DischargeRecord pop() {
@@ -32,7 +32,7 @@ public class DischargeStack {
         DischargeRecord temp = top;
         System.out.println("=====DISCHARGE STACK=====");
         while (temp != null) {
-            System.out.println(temp.getName() + " " + temp.printTime(temp.getDischargeTimeArray()));
+            System.out.println(temp.getRequest().getPatient().getName() + " " + temp.getRequest().printTime(temp.getDischargeTimeArray()));
             temp = temp.getNext();
         }
     }

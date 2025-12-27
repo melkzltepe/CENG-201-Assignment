@@ -1,14 +1,15 @@
-public class TreatmentRequest extends Patient{
+public class TreatmentRequest {
     private int patientId;
     private long arrivalTime;
     private long[] arrivalTimeArray = new long[3];
     private int gmt = 3;
     private TreatmentRequest next;
     private boolean priority;
+    private Patient patient;
 
-    public TreatmentRequest(String name, int severity, int age, boolean priority) {
-        super(name, severity, age);
-        this.patientId = super.getId();
+    public TreatmentRequest(Patient patient, boolean priority) {
+        this.patient = patient;
+        this.patientId = patient.getId();
         this.arrivalTime = System.currentTimeMillis();
         this.arrivalTimeArray = computeTime(arrivalTime, gmt);
         this.next = null;
@@ -27,6 +28,8 @@ public class TreatmentRequest extends Patient{
 
     public boolean getPriority() {return priority;}
 
+    public Patient getPatient() {return patient;}
+
     public void setPatientId(int patientId) {this.patientId = patientId;}
 
     public void setArrivalTime(long arrivalTime) {this.arrivalTime = arrivalTime;}
@@ -38,6 +41,8 @@ public class TreatmentRequest extends Patient{
     public void setNext(TreatmentRequest next) {this.next = next;}
 
     public void setPriority(boolean priority) {this.priority = priority;}
+
+    public void setPatient(Patient patient) {this.patient = patient;}
 
     public long[] computeTime(long milliSec, int gmt) {
         long seconds = milliSec / 1000;

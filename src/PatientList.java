@@ -10,10 +10,12 @@ public class PatientList {
         if (head == null) {
             head = tail = patient;
             System.out.println("The patient " + patient.getName() + " is added to the list");
+            patient.increaseId();
             return;
         }
         tail.setNext(patient);
         tail = patient;
+        patient.increaseId();
         System.out.println("The patient " + patient.getName() + " is added to the list");
     }
 
@@ -44,7 +46,6 @@ public class PatientList {
         Patient current = head;
         while (current != null) {
             if (current.getId() == id) {
-                System.out.println("The patient is found: " + current.getName());
                 return current;
             }
             current = current.getNext();
@@ -55,7 +56,7 @@ public class PatientList {
 
     public void printList() {
         Patient current = head;
-        System.out.println("PATIENT LIST");
+        System.out.println("=====PATIENT LIST=====");
         while (current != null) {
             System.out.println(current.getName());
             current = current.getNext();
